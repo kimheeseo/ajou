@@ -1,0 +1,56 @@
+# CompilerName=msvc150
+# Mode=optim
+ninja_required_version = 1.3
+
+# Basic folders
+root = .
+builddir = $root\build\win64
+matlabdir = C:\Program Files\MATLAB\R2020b
+startdir = C:\Users\pauljang\OneDrive - MathWorks\Desktop\2021_SW-SOC°ü·Ã\quick-pdm-workshop-master\demo_EN
+
+# Toolchain information
+cc = cl
+cxx = cl
+linker = link
+linkerxx = link
+
+cflags =  /c /Zp8 /GR /W3 /EHs /nologo /MD /D_CRT_SECURE_NO_DEPRECATE /D_SCL_SECURE_NO_DEPRECATE /D_SECURE_SCL=0   /DMATLAB_MEX_FILE  /DMATLAB_MEX_FILE /O2 /Oy- /DNDEBUG /fp:strict /I "$root" /I "$startdir" /I "$root\interface" /I "$matlabdir\extern\include" /I "." -DMODEL=classifyVibration_mex /openmp /wd4101 
+
+cxxflags =   /c /Zp8 /GR /W3 /EHs /nologo /MD /D_CRT_SECURE_NO_DEPRECATE /D_SCL_SECURE_NO_DEPRECATE /D_SECURE_SCL=0   /DMATLAB_MEX_FILE  /DMATLAB_MEX_FILE /O2 /Oy- /DNDEBUG /fp:strict /I "$root" /I "$startdir" /I "$root\interface" /I "$matlabdir\extern\include" /I "." -DMODEL=classifyVibration_mex /openmp /wd4101 
+
+ldflags =  /nologo /manifest   /DLL /LIBPATH:"$matlabdir\extern\lib\win64\microsoft" libmx.lib libmex.lib libmat.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib  /out:"classifyVibration_mex.mexw64" libemlrt.lib libcovrt.lib libut.lib libmwmathutil.lib libiomp5md.lib /nodefaultlib:vcomp /LIBPATH:"$matlabdir\bin\win64" /export:mexFunction /export:mexfilerequiredapiversion /export:emlrtMexFcnProperties /export:classifyVibration /export:classifyVibration_initialize /export:classifyVibration_terminate /export:classifyVibration_atexit
+
+# Build Rules
+rule cc
+    command = $cc $cflags $in /Fo$out
+
+rule cxx
+    command = $cxx $cxxflags $in /Fo$out
+
+rule link
+    command = $linker @$out.rsp $ldflags
+    rspfile = $out.rsp
+    rspfile_content = $in
+
+rule linkxx
+    command = $linkerxx $in $ldflags
+
+# Build
+build $builddir\classifyVibration_data.obj : cc $root\classifyVibration_data.c
+build $builddir\rt_nonfinite.obj : cc $root\rt_nonfinite.c
+build $builddir\classifyVibration_initialize.obj : cc $root\classifyVibration_initialize.c
+build $builddir\classifyVibration_terminate.obj : cc $root\classifyVibration_terminate.c
+build $builddir\classifyVibration.obj : cc $root\classifyVibration.c
+build $builddir\warning.obj : cc $root\warning.c
+build $builddir\eml_int_forloop_overflow_check.obj : cc $root\eml_int_forloop_overflow_check.c
+build $builddir\pdist2.obj : cc $root\pdist2.c
+build $builddir\scanfornan.obj : cc $root\scanfornan.c
+build $builddir\_coder_classifyVibration_api.obj : cc $root\interface\_coder_classifyVibration_api.c
+build $builddir\_coder_classifyVibration_mex.obj : cc $root\interface\_coder_classifyVibration_mex.c
+build $builddir\sort.obj : cc $root\sort.c
+build $builddir\sortIdx.obj : cc $root\sortIdx.c
+build $builddir\_coder_classifyVibration_info.obj : cc $root\interface\_coder_classifyVibration_info.c
+build $builddir\c_mexapi_version.obj : cc $matlabdir\extern\version\c_mexapi_version.c
+
+# Link
+build $root\classifyVibration_mex.mexw64 : link $builddir\classifyVibration_data.obj $builddir\rt_nonfinite.obj $builddir\classifyVibration_initialize.obj $builddir\classifyVibration_terminate.obj $builddir\classifyVibration.obj $builddir\warning.obj $builddir\eml_int_forloop_overflow_check.obj $builddir\pdist2.obj $builddir\scanfornan.obj $builddir\_coder_classifyVibration_api.obj $builddir\_coder_classifyVibration_mex.obj $builddir\sort.obj $builddir\sortIdx.obj $builddir\_coder_classifyVibration_info.obj $builddir\c_mexapi_version.obj 

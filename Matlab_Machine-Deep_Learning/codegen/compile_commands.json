@@ -1,0 +1,92 @@
+[
+  {
+    "directory": "C:\\Users\\pauljang\\OneDrive - MathWorks\\Desktop\\2021_SW-SOC包访\\quick-pdm-workshop-master\\demo_EN\\codegen\\mex\\classifyVibration",
+    "command": "cl /c /Zp8 /GR /W3 /EHs /nologo /MD /D_CRT_SECURE_NO_DEPRECATE /D_SCL_SECURE_NO_DEPRECATE /D_SECURE_SCL=0   /DMATLAB_MEX_FILE  /DMATLAB_MEX_FILE /O2 /Oy- /DNDEBUG /fp:strict /I \".\" /I \"C:\\Users\\pauljang\\OneDrive - MathWorks\\Desktop\\2021_SW-SOC包访\\quick-pdm-workshop-master\\demo_EN\" /I \".\\interface\" /I \"C:\\Program Files\\MATLAB\\R2020b\\extern\\include\" /I \".\" -DMODEL=classifyVibration_mex /openmp /wd4101  classifyVibration_data.c /Fobuild\\win64\\classifyVibration_data.obj",
+    "file": "classifyVibration_data.c",
+    "output": "build/win64/classifyVibration_data.obj"
+  },
+  {
+    "directory": "C:\\Users\\pauljang\\OneDrive - MathWorks\\Desktop\\2021_SW-SOC包访\\quick-pdm-workshop-master\\demo_EN\\codegen\\mex\\classifyVibration",
+    "command": "cl /c /Zp8 /GR /W3 /EHs /nologo /MD /D_CRT_SECURE_NO_DEPRECATE /D_SCL_SECURE_NO_DEPRECATE /D_SECURE_SCL=0   /DMATLAB_MEX_FILE  /DMATLAB_MEX_FILE /O2 /Oy- /DNDEBUG /fp:strict /I \".\" /I \"C:\\Users\\pauljang\\OneDrive - MathWorks\\Desktop\\2021_SW-SOC包访\\quick-pdm-workshop-master\\demo_EN\" /I \".\\interface\" /I \"C:\\Program Files\\MATLAB\\R2020b\\extern\\include\" /I \".\" -DMODEL=classifyVibration_mex /openmp /wd4101  rt_nonfinite.c /Fobuild\\win64\\rt_nonfinite.obj",
+    "file": "rt_nonfinite.c",
+    "output": "build/win64/rt_nonfinite.obj"
+  },
+  {
+    "directory": "C:\\Users\\pauljang\\OneDrive - MathWorks\\Desktop\\2021_SW-SOC包访\\quick-pdm-workshop-master\\demo_EN\\codegen\\mex\\classifyVibration",
+    "command": "cl /c /Zp8 /GR /W3 /EHs /nologo /MD /D_CRT_SECURE_NO_DEPRECATE /D_SCL_SECURE_NO_DEPRECATE /D_SECURE_SCL=0   /DMATLAB_MEX_FILE  /DMATLAB_MEX_FILE /O2 /Oy- /DNDEBUG /fp:strict /I \".\" /I \"C:\\Users\\pauljang\\OneDrive - MathWorks\\Desktop\\2021_SW-SOC包访\\quick-pdm-workshop-master\\demo_EN\" /I \".\\interface\" /I \"C:\\Program Files\\MATLAB\\R2020b\\extern\\include\" /I \".\" -DMODEL=classifyVibration_mex /openmp /wd4101  classifyVibration_initialize.c /Fobuild\\win64\\classifyVibration_initialize.obj",
+    "file": "classifyVibration_initialize.c",
+    "output": "build/win64/classifyVibration_initialize.obj"
+  },
+  {
+    "directory": "C:\\Users\\pauljang\\OneDrive - MathWorks\\Desktop\\2021_SW-SOC包访\\quick-pdm-workshop-master\\demo_EN\\codegen\\mex\\classifyVibration",
+    "command": "cl /c /Zp8 /GR /W3 /EHs /nologo /MD /D_CRT_SECURE_NO_DEPRECATE /D_SCL_SECURE_NO_DEPRECATE /D_SECURE_SCL=0   /DMATLAB_MEX_FILE  /DMATLAB_MEX_FILE /O2 /Oy- /DNDEBUG /fp:strict /I \".\" /I \"C:\\Users\\pauljang\\OneDrive - MathWorks\\Desktop\\2021_SW-SOC包访\\quick-pdm-workshop-master\\demo_EN\" /I \".\\interface\" /I \"C:\\Program Files\\MATLAB\\R2020b\\extern\\include\" /I \".\" -DMODEL=classifyVibration_mex /openmp /wd4101  classifyVibration_terminate.c /Fobuild\\win64\\classifyVibration_terminate.obj",
+    "file": "classifyVibration_terminate.c",
+    "output": "build/win64/classifyVibration_terminate.obj"
+  },
+  {
+    "directory": "C:\\Users\\pauljang\\OneDrive - MathWorks\\Desktop\\2021_SW-SOC包访\\quick-pdm-workshop-master\\demo_EN\\codegen\\mex\\classifyVibration",
+    "command": "cl /c /Zp8 /GR /W3 /EHs /nologo /MD /D_CRT_SECURE_NO_DEPRECATE /D_SCL_SECURE_NO_DEPRECATE /D_SECURE_SCL=0   /DMATLAB_MEX_FILE  /DMATLAB_MEX_FILE /O2 /Oy- /DNDEBUG /fp:strict /I \".\" /I \"C:\\Users\\pauljang\\OneDrive - MathWorks\\Desktop\\2021_SW-SOC包访\\quick-pdm-workshop-master\\demo_EN\" /I \".\\interface\" /I \"C:\\Program Files\\MATLAB\\R2020b\\extern\\include\" /I \".\" -DMODEL=classifyVibration_mex /openmp /wd4101  classifyVibration.c /Fobuild\\win64\\classifyVibration.obj",
+    "file": "classifyVibration.c",
+    "output": "build/win64/classifyVibration.obj"
+  },
+  {
+    "directory": "C:\\Users\\pauljang\\OneDrive - MathWorks\\Desktop\\2021_SW-SOC包访\\quick-pdm-workshop-master\\demo_EN\\codegen\\mex\\classifyVibration",
+    "command": "cl /c /Zp8 /GR /W3 /EHs /nologo /MD /D_CRT_SECURE_NO_DEPRECATE /D_SCL_SECURE_NO_DEPRECATE /D_SECURE_SCL=0   /DMATLAB_MEX_FILE  /DMATLAB_MEX_FILE /O2 /Oy- /DNDEBUG /fp:strict /I \".\" /I \"C:\\Users\\pauljang\\OneDrive - MathWorks\\Desktop\\2021_SW-SOC包访\\quick-pdm-workshop-master\\demo_EN\" /I \".\\interface\" /I \"C:\\Program Files\\MATLAB\\R2020b\\extern\\include\" /I \".\" -DMODEL=classifyVibration_mex /openmp /wd4101  warning.c /Fobuild\\win64\\warning.obj",
+    "file": "warning.c",
+    "output": "build/win64/warning.obj"
+  },
+  {
+    "directory": "C:\\Users\\pauljang\\OneDrive - MathWorks\\Desktop\\2021_SW-SOC包访\\quick-pdm-workshop-master\\demo_EN\\codegen\\mex\\classifyVibration",
+    "command": "cl /c /Zp8 /GR /W3 /EHs /nologo /MD /D_CRT_SECURE_NO_DEPRECATE /D_SCL_SECURE_NO_DEPRECATE /D_SECURE_SCL=0   /DMATLAB_MEX_FILE  /DMATLAB_MEX_FILE /O2 /Oy- /DNDEBUG /fp:strict /I \".\" /I \"C:\\Users\\pauljang\\OneDrive - MathWorks\\Desktop\\2021_SW-SOC包访\\quick-pdm-workshop-master\\demo_EN\" /I \".\\interface\" /I \"C:\\Program Files\\MATLAB\\R2020b\\extern\\include\" /I \".\" -DMODEL=classifyVibration_mex /openmp /wd4101  eml_int_forloop_overflow_check.c /Fobuild\\win64\\eml_int_forloop_overflow_check.obj",
+    "file": "eml_int_forloop_overflow_check.c",
+    "output": "build/win64/eml_int_forloop_overflow_check.obj"
+  },
+  {
+    "directory": "C:\\Users\\pauljang\\OneDrive - MathWorks\\Desktop\\2021_SW-SOC包访\\quick-pdm-workshop-master\\demo_EN\\codegen\\mex\\classifyVibration",
+    "command": "cl /c /Zp8 /GR /W3 /EHs /nologo /MD /D_CRT_SECURE_NO_DEPRECATE /D_SCL_SECURE_NO_DEPRECATE /D_SECURE_SCL=0   /DMATLAB_MEX_FILE  /DMATLAB_MEX_FILE /O2 /Oy- /DNDEBUG /fp:strict /I \".\" /I \"C:\\Users\\pauljang\\OneDrive - MathWorks\\Desktop\\2021_SW-SOC包访\\quick-pdm-workshop-master\\demo_EN\" /I \".\\interface\" /I \"C:\\Program Files\\MATLAB\\R2020b\\extern\\include\" /I \".\" -DMODEL=classifyVibration_mex /openmp /wd4101  pdist2.c /Fobuild\\win64\\pdist2.obj",
+    "file": "pdist2.c",
+    "output": "build/win64/pdist2.obj"
+  },
+  {
+    "directory": "C:\\Users\\pauljang\\OneDrive - MathWorks\\Desktop\\2021_SW-SOC包访\\quick-pdm-workshop-master\\demo_EN\\codegen\\mex\\classifyVibration",
+    "command": "cl /c /Zp8 /GR /W3 /EHs /nologo /MD /D_CRT_SECURE_NO_DEPRECATE /D_SCL_SECURE_NO_DEPRECATE /D_SECURE_SCL=0   /DMATLAB_MEX_FILE  /DMATLAB_MEX_FILE /O2 /Oy- /DNDEBUG /fp:strict /I \".\" /I \"C:\\Users\\pauljang\\OneDrive - MathWorks\\Desktop\\2021_SW-SOC包访\\quick-pdm-workshop-master\\demo_EN\" /I \".\\interface\" /I \"C:\\Program Files\\MATLAB\\R2020b\\extern\\include\" /I \".\" -DMODEL=classifyVibration_mex /openmp /wd4101  scanfornan.c /Fobuild\\win64\\scanfornan.obj",
+    "file": "scanfornan.c",
+    "output": "build/win64/scanfornan.obj"
+  },
+  {
+    "directory": "C:\\Users\\pauljang\\OneDrive - MathWorks\\Desktop\\2021_SW-SOC包访\\quick-pdm-workshop-master\\demo_EN\\codegen\\mex\\classifyVibration",
+    "command": "cl /c /Zp8 /GR /W3 /EHs /nologo /MD /D_CRT_SECURE_NO_DEPRECATE /D_SCL_SECURE_NO_DEPRECATE /D_SECURE_SCL=0   /DMATLAB_MEX_FILE  /DMATLAB_MEX_FILE /O2 /Oy- /DNDEBUG /fp:strict /I \".\" /I \"C:\\Users\\pauljang\\OneDrive - MathWorks\\Desktop\\2021_SW-SOC包访\\quick-pdm-workshop-master\\demo_EN\" /I \".\\interface\" /I \"C:\\Program Files\\MATLAB\\R2020b\\extern\\include\" /I \".\" -DMODEL=classifyVibration_mex /openmp /wd4101  interface\\_coder_classifyVibration_api.c /Fobuild\\win64\\_coder_classifyVibration_api.obj",
+    "file": "interface/_coder_classifyVibration_api.c",
+    "output": "build/win64/_coder_classifyVibration_api.obj"
+  },
+  {
+    "directory": "C:\\Users\\pauljang\\OneDrive - MathWorks\\Desktop\\2021_SW-SOC包访\\quick-pdm-workshop-master\\demo_EN\\codegen\\mex\\classifyVibration",
+    "command": "cl /c /Zp8 /GR /W3 /EHs /nologo /MD /D_CRT_SECURE_NO_DEPRECATE /D_SCL_SECURE_NO_DEPRECATE /D_SECURE_SCL=0   /DMATLAB_MEX_FILE  /DMATLAB_MEX_FILE /O2 /Oy- /DNDEBUG /fp:strict /I \".\" /I \"C:\\Users\\pauljang\\OneDrive - MathWorks\\Desktop\\2021_SW-SOC包访\\quick-pdm-workshop-master\\demo_EN\" /I \".\\interface\" /I \"C:\\Program Files\\MATLAB\\R2020b\\extern\\include\" /I \".\" -DMODEL=classifyVibration_mex /openmp /wd4101  interface\\_coder_classifyVibration_mex.c /Fobuild\\win64\\_coder_classifyVibration_mex.obj",
+    "file": "interface/_coder_classifyVibration_mex.c",
+    "output": "build/win64/_coder_classifyVibration_mex.obj"
+  },
+  {
+    "directory": "C:\\Users\\pauljang\\OneDrive - MathWorks\\Desktop\\2021_SW-SOC包访\\quick-pdm-workshop-master\\demo_EN\\codegen\\mex\\classifyVibration",
+    "command": "cl /c /Zp8 /GR /W3 /EHs /nologo /MD /D_CRT_SECURE_NO_DEPRECATE /D_SCL_SECURE_NO_DEPRECATE /D_SECURE_SCL=0   /DMATLAB_MEX_FILE  /DMATLAB_MEX_FILE /O2 /Oy- /DNDEBUG /fp:strict /I \".\" /I \"C:\\Users\\pauljang\\OneDrive - MathWorks\\Desktop\\2021_SW-SOC包访\\quick-pdm-workshop-master\\demo_EN\" /I \".\\interface\" /I \"C:\\Program Files\\MATLAB\\R2020b\\extern\\include\" /I \".\" -DMODEL=classifyVibration_mex /openmp /wd4101  sort.c /Fobuild\\win64\\sort.obj",
+    "file": "sort.c",
+    "output": "build/win64/sort.obj"
+  },
+  {
+    "directory": "C:\\Users\\pauljang\\OneDrive - MathWorks\\Desktop\\2021_SW-SOC包访\\quick-pdm-workshop-master\\demo_EN\\codegen\\mex\\classifyVibration",
+    "command": "cl /c /Zp8 /GR /W3 /EHs /nologo /MD /D_CRT_SECURE_NO_DEPRECATE /D_SCL_SECURE_NO_DEPRECATE /D_SECURE_SCL=0   /DMATLAB_MEX_FILE  /DMATLAB_MEX_FILE /O2 /Oy- /DNDEBUG /fp:strict /I \".\" /I \"C:\\Users\\pauljang\\OneDrive - MathWorks\\Desktop\\2021_SW-SOC包访\\quick-pdm-workshop-master\\demo_EN\" /I \".\\interface\" /I \"C:\\Program Files\\MATLAB\\R2020b\\extern\\include\" /I \".\" -DMODEL=classifyVibration_mex /openmp /wd4101  sortIdx.c /Fobuild\\win64\\sortIdx.obj",
+    "file": "sortIdx.c",
+    "output": "build/win64/sortIdx.obj"
+  },
+  {
+    "directory": "C:\\Users\\pauljang\\OneDrive - MathWorks\\Desktop\\2021_SW-SOC包访\\quick-pdm-workshop-master\\demo_EN\\codegen\\mex\\classifyVibration",
+    "command": "cl /c /Zp8 /GR /W3 /EHs /nologo /MD /D_CRT_SECURE_NO_DEPRECATE /D_SCL_SECURE_NO_DEPRECATE /D_SECURE_SCL=0   /DMATLAB_MEX_FILE  /DMATLAB_MEX_FILE /O2 /Oy- /DNDEBUG /fp:strict /I \".\" /I \"C:\\Users\\pauljang\\OneDrive - MathWorks\\Desktop\\2021_SW-SOC包访\\quick-pdm-workshop-master\\demo_EN\" /I \".\\interface\" /I \"C:\\Program Files\\MATLAB\\R2020b\\extern\\include\" /I \".\" -DMODEL=classifyVibration_mex /openmp /wd4101  interface\\_coder_classifyVibration_info.c /Fobuild\\win64\\_coder_classifyVibration_info.obj",
+    "file": "interface/_coder_classifyVibration_info.c",
+    "output": "build/win64/_coder_classifyVibration_info.obj"
+  },
+  {
+    "directory": "C:\\Users\\pauljang\\OneDrive - MathWorks\\Desktop\\2021_SW-SOC包访\\quick-pdm-workshop-master\\demo_EN\\codegen\\mex\\classifyVibration",
+    "command": "cl /c /Zp8 /GR /W3 /EHs /nologo /MD /D_CRT_SECURE_NO_DEPRECATE /D_SCL_SECURE_NO_DEPRECATE /D_SECURE_SCL=0   /DMATLAB_MEX_FILE  /DMATLAB_MEX_FILE /O2 /Oy- /DNDEBUG /fp:strict /I \".\" /I \"C:\\Users\\pauljang\\OneDrive - MathWorks\\Desktop\\2021_SW-SOC包访\\quick-pdm-workshop-master\\demo_EN\" /I \".\\interface\" /I \"C:\\Program Files\\MATLAB\\R2020b\\extern\\include\" /I \".\" -DMODEL=classifyVibration_mex /openmp /wd4101  \"C:\\Program Files\\MATLAB\\R2020b\\extern\\version\\c_mexapi_version.c\" /Fobuild\\win64\\c_mexapi_version.obj",
+    "file": "C:/Program Files/MATLAB/R2020b/extern/version/c_mexapi_version.c",
+    "output": "build/win64/c_mexapi_version.obj"
+  }
+]
