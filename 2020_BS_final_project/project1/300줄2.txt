@@ -1,0 +1,336 @@
+//============================================================================================
+// 선행처리 지시
+//--------------------------------------------------------------------------------------------
+#include "DSP28x_Project.h"						// Device Headerfile and Examples Include File
+//============================================================================================
+
+//============================================================================================
+//	함수 선언
+//--------------------------------------------------------------------------------------------
+interrupt void Xint3_isr(void);
+interrupt void Xint4_isr(void);
+interrupt void Xint5_isr(void);
+interrupt void Xint6_isr(void);
+//============================================================================================
+
+//============================================================================================
+// 시스템에서 사용할 전역 변수 선언
+//--------------------------------------------------------------------------------------------
+Uint16 Loop_cnt, i, j;
+Uint16 SW_cnt, Mode1Con, Mode2Acc, Mode2Tog, Mode2Ini;
+Uint16 Mode4Lft, Mode4Rht, Mode4Tot, Mode5Ptr;
+float32 usec_delay, usec_delaydb;
+//============================================================================================
+
+//============================================================================================
+//	메인 함수 - 시작
+//============================================================================================
+void main(void)
+{
+//============================================================================================
+// Step 1. Disable Global Interrupt
+//--------------------------------------------------------------------------------------------
+	DINT;
+//============================================================================================
+
+//============================================================================================
+// Step 2. 시스템 컨트롤 초기화:
+//--------------------------------------------------------------------------------------------
+	InitSysCtrl();
+//============================================================================================
+
+//============================================================================================
+// Step 3. 인터럽트 초기화:
+//--------------------------------------------------------------------------------------------
+	InitPieCtrl();
+	IER = 0x0000;
+	IFR = 0x0000;
+	InitPieVectTable();
+
+	// Vector Remapping
+	EALLOW;
+	PieVectTable.XINT3 = &Xint3_isr;
+	PieVectTable.XINT4 = &Xint4_isr;
+	PieVectTable.XINT5 = &Xint5_isr;
+	PieVectTable.XINT6 = &Xint6_isr;
+	EDIS;
+//============================================================================================
+
+//============================================================================================
+// Step 4. GPIO 초기화
+//--------------------------------------------------------------------------------------------
+	EALLOW;
+	GpioCtrlRegs.GPBMUX1.bit.GPIO44 = 0;		// 핀 기능선택: GPIO44
+	GpioCtrlRegs.GPBMUX1.bit.GPIO45 = 0;		// 핀 기능선택: GPIO45
+	GpioCtrlRegs.GPBMUX1.bit.GPIO46 = 0;		// 핀 기능선택: GPIO46
+	GpioCtrlRegs.GPBMUX1.bit.GPIO47 = 0;		// 핀 기능선택: GPIO47
+	GpioCtrlRegs.GPBDIR.bit.GPIO44 = 0;			// GPIO44 입출력 선택: Input
+	GpioCtrlRegs.GPBDIR.bit.GPIO45 = 0;			// GPIO45 입출력 선택: Input
+	GpioCtrlRegs.GPBDIR.bit.GPIO46 = 0;			// GPIO46 입출력 선택: Input
+	GpioCtrlRegs.GPBDIR.bit.GPIO47 = 0;			// GPIO47 입출력 선택: Input
+	GpioCtrlRegs.GPCMUX1.all = 0x00000000;		// GPIO64-GPIO79, GPIO 기능으로 설정
+	GpioCtrlRegs.GPCDIR.all = 0x0000FFFF;		// GPI064-GPIO79, 출력으로 설정
+	EDIS;
+	GpioDataRegs.GPCDAT.all = 0x00000000;
+//============================================================================================
+
+//============================================================================================
+// Step 5. Qualification 초기화
+//--------------------------------------------------------------------------------------------
+	EALLOW;
+	GpioCtrlRegs.GPBCTRL.bit.QUALPRD1 = 0xFF;	// (GPIO40~GPIO47) Qual period 설정
+	GpioCtrlRegs.GPBQSEL1.bit.GPIO44 = 2;		// Qualification using 6 samples
+	GpioCtrlRegs.GPBQSEL1.bit.GPIO45 = 2;		// Qualification using 6 samples
+	GpioCtrlRegs.GPBQSEL1.bit.GPIO46 = 2;		// Qualification using 6 samples
+	GpioCtrlRegs.GPBQSEL1.bit.GPIO47 = 2;		// Qualification using 6 samples
+   	EDIS;
+//============================================================================================
+
+//============================================================================================
+// Step 6. XINT 초기화
+//--------------------------------------------------------------------------------------------
+	EALLOW;
+	GpioIntRegs.GPIOXINT3SEL.bit.GPIOSEL = 47;	// 외부 인터럽트 XINT3로 사용할 핀 선택: GPIO47
+	GpioIntRegs.GPIOXINT4SEL.bit.GPIOSEL = 46;	// 외부 인터럽트 XINT4로 사용할 핀 선택: GPIO46
+	GpioIntRegs.GPIOXINT5SEL.bit.GPIOSEL = 45;	// 외부 인터럽트 XINT5로 사용할 핀 선택: GPIO45
+	GpioIntRegs.GPIOXINT6SEL.bit.GPIOSEL = 44;	// 외부 인터럽트 XINT6로 사용할 핀 선택: GPIO44
+	EDIS;
+
+	XIntruptRegs.XINT3CR.bit.POLARITY = 2;      // XINT3 인터럽트 발생 조건 설정: 입력 신호의 상승 엣지
+	XIntruptRegs.XINT4CR.bit.POLARITY = 2;      // XINT4 인터럽트 발생 조건 설정: 입력 신호의 상승 엣지
+	XIntruptRegs.XINT5CR.bit.POLARITY = 2;      // XINT5 인터럽트 발생 조건 설정: 입력 신호의 상승 엣지
+	XIntruptRegs.XINT6CR.bit.POLARITY = 2;      // XINT6 인터럽트 발생 조건 설정: 입력 신호의 상승 엣지
+
+	XIntruptRegs.XINT3CR.bit.ENABLE = 1;        // XINT3 인터럽트 : Enable
+	XIntruptRegs.XINT4CR.bit.ENABLE = 1;        // XINT4 인터럽트 : Enable
+	XIntruptRegs.XINT5CR.bit.ENABLE = 1;        // XINT5 인터럽트 : Enable
+	XIntruptRegs.XINT6CR.bit.ENABLE = 1;        // XINT6 인터럽트 : Enable
+
+	// 외부 인터터트 포합된 백터 활성화
+	PieCtrlRegs.PIEIER12.bit.INTx1 = 1;			// PIE 인터럽트(XINT3) : Enable
+	PieCtrlRegs.PIEIER12.bit.INTx2 = 1;			// PIE 인터럽트(XINT4) : Enable
+	PieCtrlRegs.PIEIER12.bit.INTx3 = 1;			// PIE 인터럽트(XINT5) : Enable
+	PieCtrlRegs.PIEIER12.bit.INTx4 = 1;			// PIE 인터럽트(XINT6) : Enable
+	IER |= M_INT12;								// CPU 인터럽트(INT12) : Enable
+//============================================================================================
+
+//============================================================================================
+// Step 7. Initialize Application Variables
+//--------------------------------------------------------------------------------------------
+	SW_cnt = 0;
+	Mode1Con = 0x0000C000;
+	Mode2Ini = 0x00008000;
+	Mode2Tog = 0x0000C000;
+	Mode2Acc = 0x00004000;
+	Mode4Lft = 0x0000C000;
+	Mode4Rht = 0x00000003;
+	Mode4Tot = 0x00000000;
+	Mode5Ptr = 0x00008000;
+	Loop_cnt = 0;
+	usec_delay = 500000;
+	usec_delaydb = 1000000;
+//============================================================================================
+
+//============================================================================================
+// Enable global Interrupts and higher priority real-time debug events:
+//--------------------------------------------------------------------------------------------
+	EINT;   // Enable Global interrupt INTM
+	ERTM;   // Enable Global realtime interrupt DBGM
+//============================================================================================
+
+//============================================================================================
+// IDLE loop. Just sit and loop forever :
+//--------------------------------------------------------------------------------------------
+	for(;;)
+	{
+		switch (SW_cnt)
+		{
+			case 1:
+			{
+				Mode1Con = 0x0000C000;
+				GpioDataRegs.GPCDAT.all = 0x00008000;
+				if (SW_cnt != 1) break;
+				DELAY_US(usec_delaydb);
+				GpioDataRegs.GPCTOGGLE.all = Mode1Con;
+				if (SW_cnt != 1) break;
+				DELAY_US(usec_delaydb);
+				for(i = 1; i < 15; i++)
+				{
+					Mode1Con = Mode1Con / 2;
+					GpioDataRegs.GPCTOGGLE.all= Mode1Con;
+					if (SW_cnt != 1) break;
+				    DELAY_US(usec_delaydb);
+				}
+				break;
+			}
+			case 2:
+			{
+				Mode2Ini = 0x00008000;
+				Mode2Tog = 0x0000C000;
+				Mode2Acc = 0x00004000;
+				while (SW_cnt == 2)
+				{
+					GpioDataRegs.GPCCLEAR.all = 0x0000FFFF;
+					for (i = 1; i <= 16; i++)
+					{
+						Mode2Tog = 0x00006000;
+						for (j = 1; j < i; j++)	Mode2Tog /= 2;
+
+						GpioDataRegs.GPCCLEAR.all = 0x0000FFFF;
+						GpioDataRegs.GPCSET.all = Mode2Ini;
+						if (SW_cnt != 2) break;
+						DELAY_US(usec_delay);
+						GpioDataRegs.GPCSET.all = Mode2Ini + Mode2Acc;
+						if (SW_cnt != 2) break;
+						DELAY_US(usec_delay);
+
+						for (j = 1; j < 16 - i; j++)
+						{
+							GpioDataRegs.GPCTOGGLE.all = Mode2Tog;
+							Mode2Tog /= 2;
+							if (SW_cnt != 2) break;
+							DELAY_US(usec_delay);
+						}
+						if (SW_cnt != 2) break;
+						Mode2Ini += Mode2Acc;
+						Mode2Acc /= 2;
+					}
+				}
+			}
+			case 3:
+			{
+				GpioDataRegs.GPCDAT.all = 0x0000AAAA;
+				if (SW_cnt != 3) break;
+				DELAY_US(usec_delay);
+				GpioDataRegs.GPCDAT.all = 0x00005555;
+				if (SW_cnt != 3) break;
+				DELAY_US(usec_delay);
+				break;
+			}
+			case 4:
+			{
+				Mode4Lft = 0x0000C000;
+				Mode4Rht = 0x00000003;
+				Mode4Tot = 0x00000000;
+				GpioDataRegs.GPCDAT.all = 0x00008001;
+				if (SW_cnt != 4) break;
+				DELAY_US(usec_delaydb);
+				Mode4Tot = Mode4Lft + Mode4Rht;
+				GpioDataRegs.GPCTOGGLE.all = Mode4Tot;
+				if (SW_cnt != 4) break;
+				DELAY_US(usec_delaydb);
+
+				for (i = 1; i < 14; i++)
+				{
+					Mode4Lft /= 2;
+					Mode4Rht *= 2;
+
+					if (Mode4Lft == Mode4Rht)
+					{
+						if (SW_cnt != 4) break;
+						DELAY_US(usec_delaydb);
+						continue;
+					}
+					else
+					{
+						Mode4Tot = Mode4Lft + Mode4Rht;
+						GpioDataRegs.GPCTOGGLE.all = Mode4Tot;
+						if (SW_cnt != 4) break;
+						DELAY_US(usec_delaydb);
+					}
+				}
+				break;
+			}
+			case 5:
+			{
+				Mode5Ptr = 0x00008000;
+				while (SW_cnt == 5)
+				{
+					for (i = 1; i <= 5; i++)
+					{
+						GpioDataRegs.GPCCLEAR.all = 0x0000FFFF;
+						for (j = 1; j <= i; j++)
+						{
+							GpioDataRegs.GPCSET.all = Mode5Ptr;
+							Mode5Ptr /= 2;
+							if (Mode5Ptr == 0x00000000)
+								Mode5Ptr = 0x00008000;
+						}
+						if (SW_cnt != 5) break;
+						DELAY_US(usec_delaydb);
+					}
+				}
+				break;
+			}
+			case 6:
+			{
+				GpioDataRegs.GPCDAT.all = 0x00008000;
+				if (SW_cnt != 6) break;
+				DELAY_US(usec_delaydb);
+				GpioDataRegs.GPCDAT.all = 0x00006000;
+				if (SW_cnt != 6) break;
+				DELAY_US(usec_delaydb);
+				GpioDataRegs.GPCDAT.all = 0x00001C00;
+				if (SW_cnt != 6) break;
+				DELAY_US(usec_delaydb);
+				GpioDataRegs.GPCDAT.all = 0x00000300;
+				if (SW_cnt != 6) break;
+				DELAY_US(usec_delaydb);
+				GpioDataRegs.GPCDAT.all = 0x00000080;
+				if (SW_cnt != 6) break;
+				DELAY_US(usec_delaydb);
+				GpioDataRegs.GPCDAT.all = 0x00000060;
+				if (SW_cnt != 6) break;
+				DELAY_US(usec_delaydb);
+				GpioDataRegs.GPCDAT.all = 0x0000001C;
+				if (SW_cnt != 6) break;
+				DELAY_US(usec_delaydb);
+				GpioDataRegs.GPCDAT.all = 0x00000003;
+				if (SW_cnt != 6) break;
+				DELAY_US(usec_delaydb);
+				break;
+			}
+			default :
+			{
+				GpioDataRegs.GPCCLEAR.all = 0x0000FFFF;
+				GpioDataRegs.GPCDAT.all = 0x00008000;
+				if (SW_cnt >= 1 && SW_cnt <= 6)	break;
+				DELAY_US(usec_delay);
+				GpioDataRegs.GPCDAT.all = 0x00000000;
+				if (SW_cnt >= 1 && SW_cnt <= 6)	break;
+				DELAY_US(usec_delay);
+				break;
+			}
+		}
+		Loop_cnt++;
+	}
+//============================================================================================
+}
+//============================================================================================
+//	메인 함수 - 끝
+//============================================================================================
+
+//============================================================================================
+//	ISR 함수 정의
+//--------------------------------------------------------------------------------------------
+interrupt void Xint3_isr(void)
+{
+	SW_cnt++;
+	PieCtrlRegs.PIEACK.all = PIEACK_GROUP12;
+}
+interrupt void Xint4_isr(void)
+{
+	SW_cnt--;
+	PieCtrlRegs.PIEACK.all = PIEACK_GROUP12;
+}
+interrupt void Xint5_isr(void)
+{
+	SW_cnt = 0;
+	PieCtrlRegs.PIEACK.all = PIEACK_GROUP12;
+}
+interrupt void Xint6_isr(void)
+{
+	SW_cnt = 1;
+	PieCtrlRegs.PIEACK.all = PIEACK_GROUP12;
+}
+//============================================================================================
