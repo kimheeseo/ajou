@@ -4,3 +4,5 @@
 
 2. 2020_BS_final_project Public
 - 전자종합설계: 이교범
+
+3. 2022_AI_SW_Programmingstudy
