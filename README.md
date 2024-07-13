@@ -6,3 +6,6 @@
 - 전자종합설계: 이교범
 
 3. 2022_AI_SW_Programmingstudy
+
+4. HY_IDEC-Tensorflow_DeepLearning
+- 딥러닝 프레임워크 기반 인공지능의 이해
